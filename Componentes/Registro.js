@@ -1,88 +1,117 @@
-// ./Componentes/registro.js
-import { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { auth } from "../conexion/firebaseConfig";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import { registerUser } from "../conexion/autenticacion";
 
-export default function Registro() {
-  const [name, setName] = useState('');
-  const [lastname, setLastName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+export default function Registro({navigation}) {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRegister = async () => {
     try {
-      const user = await registerUser(auth, name, lastname, nickname, email, password);
-      console.log(`Bienvenido ${user.uid}`);
+      const user = await registerUser(email, password, firstname, lastname, nickname);
+      Alert.alert('Registrado con éxito', `Bienvenido, ${user.uid}`);
     } catch (error) {
-      console.log('Error fatal en el registro');
-      throw error;
     }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container_login}>
+      <Text style={styles.title}>Registrate en Biss</Text>
       <TextInput
-        value={name}
-        onChangeText={setName}
+        style={styles.input}
         placeholder="Nombre"
-        style={styles.input}
+        value={firstname}
+        onChangeText={setFirstname}
       />
       <TextInput
-        value={lastname}
-        onChangeText={setLastName}
+        style={styles.input}
         placeholder="Apellido"
-        style={styles.input}
+        value={lastname}
+        onChangeText={setLastname}
       />
       <TextInput
+        style={styles.input}
+        placeholder="Nick Name"
         value={nickname}
         onChangeText={setNickname}
-        placeholder="Apodo"
-        style={styles.input}
       />
       <TextInput
+        style={styles.input}
+        placeholder="Correo electrónico"
+        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
-        placeholder="Correo Electrónico"
-        style={styles.input}
       />
       <TextInput
-        value={password}
-        onChangeText={setPassword}
+        style={styles.input}
         placeholder="Contraseña"
         secureTextEntry
-        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
       />
-      <TouchableOpacity onPress={handleRegister} style={styles.button}>
-        <Text style={styles.buttonText}>Registrar</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
+
+      <View style={styles.registerContainer}>
+        <Text style={styles.registerText}>Ir al</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.registerLink}>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: '#fff',
+  container_login: {
     flex: 1,
     justifyContent: 'center',
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ddd',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    marginBottom: 15,
+    backgroundColor: '#fff',
   },
   button: {
     backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
+    paddingVertical: 12,
+    borderRadius: 8,
     alignItems: 'center',
+    marginBottom: 20,
   },
   buttonText: {
     color: '#fff',
+    fontSize: 18,
+  },
+  registerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  registerText: {
     fontSize: 16,
+  },
+  registerLink: {
+    color: '#007bff',
+    fontSize: 16,
+    marginLeft: 5,
   },
 });

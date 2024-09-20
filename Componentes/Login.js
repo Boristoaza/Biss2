@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
-// import { registerUser } from "../conexion/autenticacion";
 import { LoginUser } from "../conexion/autenticacion";
 
-export default function Login() {
+
+
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const user = await LoginUser(email, password);
-      Alert.alert('Logueado con éxito', `Bienvenido, ${user.uid}`);
+      const { user, profileData } = await LoginUser(email, password);
+      if (user && user.uid) {
+        navigation.navigate('Perfil', { profileData });
+      }
     } catch (error) {
-      Alert.alert('¡Ups! Ha ocurrido algo mal. Por favor, prueba de nuevo.');
+      console.error('Error en el inicio de sesión:', error);
+      Alert.alert('Error', 'Hubo un problema al iniciar sesión.');
     }
   };
 
@@ -41,7 +45,7 @@ export default function Login() {
 
       <View style={styles.registerContainer}>
         <Text style={styles.registerText}>¿No tienes una cuenta?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
           <Text style={styles.registerLink}>Regístrate aquí</Text>
         </TouchableOpacity>
       </View>
