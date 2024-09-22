@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Btn_subir_imagen from '../Botones/Btn_subir_imagen';
+import ContenedorImagen from '../contendorComponente/contendorImagen';
 
 export default function Perfil({ route }) {
   const { profileData } = route.params;
-
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
@@ -12,7 +13,9 @@ export default function Perfil({ route }) {
         </TouchableOpacity>
       </View>
       <View style={styles.profilePictureContainer}>
-        <View style={styles.profilePicture}></View>
+        {/* <View style={styles.profilePicture}></View> */}
+
+        <ContenedorImagen/>
       </View>
       <View style={styles.profileInfo}>
         <Text style={styles.label}>Nombre:</Text>
@@ -26,6 +29,7 @@ export default function Perfil({ route }) {
         <Text style={styles.label}>Apodo:</Text>
         <Text style={styles.value}>{profileData.nickname}</Text>
       </View>
+      <Btn_subir_imagen></Btn_subir_imagen>
     </View>
   );
 }
