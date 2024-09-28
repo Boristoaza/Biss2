@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     height: 160, // Ajusta el tamaño según sea necesario
     marginBottom: 10,
     borderRadius:100,
-
   },
 });
 

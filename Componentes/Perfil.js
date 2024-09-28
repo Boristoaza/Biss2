@@ -2,20 +2,18 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Btn_subir_imagen from '../Botones/Btn_subir_imagen';
 import ContenedorImagen from '../contendorComponente/contendorImagen';
+import ImagenBanner from '../Botones/btn_subir_banner';
+import MuestraBanner from '../contendorComponente/contenedorBanner';
 
 export default function Perfil({ route }) {
   const { profileData } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
-        <TouchableOpacity style={styles.editarBanner}>
-          <Text style={styles.editText}>Editar</Text>
-        </TouchableOpacity>
+        <MuestraBanner />
       </View>
       <View style={styles.profilePictureContainer}>
-        {/* <View style={styles.profilePicture}></View> */}
-
-        <ContenedorImagen/>
+        <ContenedorImagen />
       </View>
       <View style={styles.profileInfo}>
         <Text style={styles.label}>Nombre:</Text>
@@ -29,7 +27,10 @@ export default function Perfil({ route }) {
         <Text style={styles.label}>Apodo:</Text>
         <Text style={styles.value}>{profileData.nickname}</Text>
       </View>
-      <Btn_subir_imagen></Btn_subir_imagen>
+      <View style={styles.buttonContainer}>
+        <Btn_subir_imagen />
+        <ImagenBanner />
+      </View>
     </View>
   );
 }
@@ -50,15 +51,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -60,
     marginBottom: 20,
-  },
-  profilePicture: {
-    borderRadius: 120,
-    height: 120,
-    width: 120,
-    overflow: 'hidden',
-    borderWidth: 4,
-    borderColor: '#ffffff',
-    backgroundColor: 'grey',
   },
   profileInfo: {
     marginBottom: 20,
@@ -81,19 +73,9 @@ const styles = StyleSheet.create({
     color: '#555',
     marginTop: 5,
   },
-  editarBanner: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    borderRadius: 25,
-    backgroundColor: 'blue',
-    height: 50,
-    width: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  editText: {
-    color: 'white',
-    fontWeight: 'bold',
+  buttonContainer: {
+    flexDirection: 'row', // Para que los botones estén uno al lado del otro
+    justifyContent: 'space-around', // Para espaciar los botones equitativamente
+    marginVertical: 20, // Espaciado vertical
   },
 });

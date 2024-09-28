@@ -10,13 +10,13 @@ export const subirFoto = async (uri) => {
     return;
   }
   const uid = user.uid; // Obtener el UID del usuario autenticado
-  console.log('Este es el UID del usuario: ' + uid);
+  // console.log('Este es el UID del usuario: ' + uid);
 
   const storage = getStorage();
 
   const timestamp = Date.now(); // Genera un timestamp
   const nombreArchivo = `${timestamp}.jpg`; // Asigna un nombre al archivo
-  const storageRef = ref(storage, 'imagen/'+uid+'/'+nombreArchivo); // Crea la referencia
+  const storageRef = ref(storage, 'imagen/'+ uid +'/'+ nombreArchivo); // Crea la referencia
 
   try {
     // Obtén la imagen como blob
@@ -25,10 +25,10 @@ export const subirFoto = async (uri) => {
     // Sube el blob a Firebase Storage
     await uploadBytes(storageRef, blob);
 
-    console.log('La imagen se subió con éxito');
+    // console.log('La imagen se subió con éxito');
     const downloadURL = await getDownloadURL(storageRef);
-    console.log('URL de descarga de la imagen:', downloadURL);
-    urls(downloadURL)
+    // console.log('URL de descarga de la imagen:', downloadURL);
+    // urls(downloadURL)
 
   } catch (error) {
     console.log('Error fatal: ' + error);

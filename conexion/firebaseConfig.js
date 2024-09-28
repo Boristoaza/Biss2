@@ -28,26 +28,3 @@ const db = getDatabase(app);
 const storage = getStorage(app);
 
 export { auth, db, storage, set, ref };
-
-
-// export default async function datos(data) {
-//   try {
-//     const uid = 'hdVjEDZZNwOYt4646wxdYoyp0GF3'; // UID quemado para ejemplo
-//     const url = 'https://firebasestorage.googleapis.com/v0/b/biss-fa823.appspot.com/o/images%2Fundefined%2F1726547643236.jpg?alt=media&token=57bdd9ab-7dcd-4e77-8eca-b762c8522498'; // Asegúrate de obtener el URL real de la imagen
-//     const timestamp = Date.now(); // Puedes usar un timestamp real
-
-//     const db = getDatabase();
-//     const base = ref(db, 'Imagenes_Url/' + uid + '/' + data);
-
-//     const newEntryRef = await push(base, {
-//       url: url,
-//       timestamp: timestamp,
-//     });
-
-//     console.log('Datos subidos exitosamente. Referencia de la nueva entrada:', newEntryRef.key);
-//   } catch (error) {
-//     console.error('Algo falló:', error);
-//   }
-// }
-
-// datos('imagen_123');
